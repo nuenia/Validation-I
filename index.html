@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/org.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <form action="" method="POST" class="form" id="form-1">
+            <h3 class="heading">Thành viên đăng ký</h3>
+            <p class="desc">Cùng học lập trình tại F8 ❤️</p>
+
+            <div class="spacer"></div>
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Tên đầy đủ</label>
+                <input type="text" id="fullname" name="fullname" placeholder="VD: Quang Nha" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" id="email" name="email" placeholder="VD: email@gmail.com" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input type="password" id="password" name="password" placeholder="VD: Nhập mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password-confirmation" class="form-label">Nhập lại mật khẩu</label>
+                <input type="password" id="password-confirmation" name="password-confirmation" placeholder="VD: Nhập lại mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="avatar" class="form-label">Ảnh đại diện</label>
+                <input type="file" id="avatar" name="avatar"  class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="province" class="form-label">Chọn nơi ở </label>
+                <select id="province" name="province"  class="form-control">
+                    <option value="">--Chọn tỉnh/thành phố--</option>
+                    <option value="hcm">TP.Hồ Chí Minh</option>
+                    <option value="dn">TP.Đà Nẵng</option>
+                    <option value="hn">Hà Nội</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password-confirmation" class="form-label">Giới tính</label>
+                <div class="form-gender">
+                    <div>
+                        <input type="radio" name="gender" value="male" class="form-control">
+                        Nam
+                    </div>
+                    <div>
+                        <input type="radio" name="gender" value="female" class="form-control">
+                        Nữ
+                    </div>
+                    <div>
+                        <input type="radio" name="gender" value="other" class="form-control">
+                        Khác
+                    </div>
+                </div>
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="password-confirmation" class="form-label">Giới tính</label>
+                <div class="form-hobby">
+                    <div>
+                        <input type="checkbox" name="hobby" value="read" class="form-control">
+                        Đọc sách
+                    </div>
+                    <div>
+                        <input type="checkbox" name="hobby" value="travel" class="form-control">
+                        Du lịch
+                    </div>
+                    <div>
+                        <input type="checkbox" name="hobby" value="eatfood" class="form-control">
+                        Ăn uống
+                    </div>
+                </div>
+                <span class="form-message"></span>
+            </div>
+
+            <button class="form-submit">ĐĂNG KÝ</button>
+        </form>
+    </div>
+    <script src="./validator.js"></script>
+    <script>
+        //mong muốn của chúng ta 
+        Validator({
+            form:'#form-1',
+            gruopSelector:'.form-group',
+            errorSelector:'.form-message',
+            rules:[
+                Validator.isRequired('#fullname','Vui lòng nhập tên đầy đủ'),
+                Validator.isRequired('#email'),
+                Validator.isEmail('#email'),
+                Validator.minLength('#password',6),
+                Validator.isRequired('#password-confirmation'),
+                Validator.isChosen('input[name="gender"]'),
+                Validator.isChosen('input[name="hobby"]'),
+                Validator.isRequired('#avatar'),
+                Validator.isConfirmed('#password-confirmation', function() {
+                    return document.querySelector('#form-1 #password').value
+                }, 'Mật khẩu nhập lại không chính xác')
+            ],
+            onSubmit: function(data) {
+                // call API
+                console.log(data)
+            }
+        })
+    </script>
+</body>
+</html>
